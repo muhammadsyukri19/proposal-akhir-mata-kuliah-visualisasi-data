@@ -1,0 +1,109 @@
+.median-value {
+  font-weight: bold;
+  font-size: 12px;
+  fill: #333;
+}
+.trend-line {
+  fill: none;
+  stroke: #ff6347; /* tomato color */
+  stroke-width: 3;
+  stroke-dasharray: 5, 5;
+  opacity: 0.7;
+}
+.description {
+  color: #555;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* SVG container */
+#boxplot {
+  display: block;
+  margin: 0 auto;
+  height: 600px; /* Menyesuaikan dengan height yang baru */
+}
+
+/* Styling untuk axis */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis-label {
+  font-size: 14px;
+  font-weight: bold;
+  fill: #333;
+}
+
+.chart-title {
+  font-size: 16px;
+  font-weight: bold;
+  fill: #333;
+}
+
+/* Styling untuk boxplot */
+.box {
+  fill: #4682b4; /* Warna steelblue seperti pada contoh */
+  fill-opacity: 0.7;
+  stroke: #2a5a8c;
+  stroke-width: 2; /* Stroke lebih tebal */
+  rx: 2; /* Sudut sedikit melengkung */
+}
+
+.median-line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2;
+}
+
+.whisker-line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.whisker-cap {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.outlier {
+  fill: #000;
+  stroke: none;
+}
+
+/* Styling untuk tick labels */
+.tick text {
+  font-size: 12px;
+  fill: #333;
+}
+
+.x-axis .tick text {
+  font-weight: bold;
+  font-size: 14px;
+}

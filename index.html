@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Performance Factors Analysis</title>
+    <style>
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background: linear-gradient(135deg, #2c3e50, #4ca1af);
+        color: white;
+        padding: 80px 0 100px;
+        text-align: center;
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        margin-bottom: 50px;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+      }
+
+      header p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+
+      /* Team Section */
+      .team-section {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 50px;
+      }
+
+      .team-section h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .team-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 3px;
+        background: linear-gradient(to right, #4ca1af, #2c3e50);
+      }
+
+      .team-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding: 20px;
+      }
+
+      .team-card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        width: 250px;
+        transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+      }
+
+      .team-card:hover {
+        transform: scale(1);
+        transform-origin: center bottom;
+      }
+
+      .team-container:hover .team-card:not(:hover) {
+        transform: scale(0.9);
+        filter: brightness(0.5) contrast(1.2) blur(5px);
+      }
+
+      /* Image style */
+      .team-card img {
+        width: 100%;
+        height: 350px;
+        border-bottom: 4px solid #403a5f;
+        object-fit: cover;
+      }
+
+      /* Text info */
+      .team-card h3 {
+        margin: 10px 0;
+        font-size: 1.2rem;
+        color: #2c3e50;
+      }
+
+      .team-card p {
+        color: #7f8c8d;
+        margin-bottom: 15px;
+      }
+
+      .team-members {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .member {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        width: calc(25% - 15px);
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .member:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .member-icon {
+        width: 60px;
+        height: 60px;
+        background-color: #4ca1af;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 15px;
+        color: white;
+        font-size: 24px;
+      }
+
+      .member h3 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: #2c3e50;
+      }
+
+      .member p {
+        font-size: 0.9rem;
+        color: #666;
+      }
+
+      /* Dataset Description */
+      .dataset-section {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 50px;
+      }
+
+      .dataset-section h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .dataset-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70px;
+        height: 3px;
+        background: linear-gradient(to right, #4ca1af, #2c3e50);
+      }
+
+      .dataset-info {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .dataset-image {
+        flex: 0 0 300px;
+        height: 200px;
+        background-color: #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #555;
+        font-size: 3rem;
+      }
+
+      .dataset-description {
+        flex: 1;
+      }
+
+      .dataset-description p {
+        margin-bottom: 15px;
+      }
+
+      .dataset-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .stat-item {
+        background-color: #f5f7fa;
+        padding: 10px 15px;
+        border-radius: 30px;
+        font-size: 0.9rem;
+        color: #555;
+      }
+
+      /* Visualization Sections */
+      .visualizations-section {
+        margin-bottom: 50px;
+      }
+
+      .visualizations-section h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #2c3e50;
+        position: relative;
+        padding-bottom: 15px;
+      }
+
+      .visualizations-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+        height: 3px;
+        background: linear-gradient(to right, #4ca1af, #2c3e50);
+      }
+
+      .viz-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+      }
+
+      .viz-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .viz-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .viz-image {
+        height: 150px;
+        background-color: #eee;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.5rem;
+        color: #777;
+        overflow: hidden;
+      }
+
+      .viz-image i {
+        transition: transform 0.3s;
+      }
+
+      .viz-card:hover .viz-image i {
+        transform: scale(1.2);
+      }
+
+      .viz-content {
+        padding: 20px;
+      }
+
+      .viz-content h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #2c3e50;
+      }
+
+      .viz-content p {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 15px;
+      }
+
+      .viz-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        background: linear-gradient(135deg, #4ca1af, #2c3e50);
+        color: white;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: opacity 0.3s;
+      }
+
+      .viz-btn:hover {
+        opacity: 0.9;
+      }
+
+      /* Footer */
+      footer {
+        background: linear-gradient(135deg, #2c3e50, #4ca1af);
+        color: white;
+        padding: 50px 0 20px;
+        text-align: center;
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
+        margin-top: 100px;
+      }
+
+      .footer-content {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .footer-content p {
+        margin-bottom: 20px;
+        opacity: 0.9;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background-color 0.3s;
+      }
+
+      .social-icon:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* Back to top button */
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #4ca1af, #2c3e50);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .back-to-top.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        header {
+          padding: 60px 0 80px;
+        }
+
+        header h1 {
+          font-size: 2.2rem;
+        }
+
+        .dataset-info {
+          flex-direction: column;
+        }
+
+        .dataset-image {
+          width: 100%;
+          flex: none;
+          margin-bottom: 20px;
+        }
+
+        .member {
+          width: calc(50% - 15px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        header h1 {
+          font-size: 1.8rem;
+        }
+
+        .member {
+          width: 100%;
+        }
+
+        .viz-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="container">
+        <h1>Student Performance Factors Analysis</h1>
+        <p>
+          Mengeksplorasi dan menganalisis faktor-faktor yang mempengaruhi
+          performa akademik siswa
+        </p>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Team Section -->
+      <section class="team-section">
+        <h2>Tim Kami</h2>
+        <div class="team-container">
+          <div class="team-card">
+            <img src="/asset/mahardika.jpg" alt="Anggota 1" />
+            <h3>Mahardika Shiddiq Anshari</h3>
+            <p>2308107010032</p>
+          </div>
+
+          <div class="team-card">
+            <img src="asset/nazlul.jpg" alt="Anggota 2" />
+            <h3>Muhammad Nazlul Ramadhyan</h3>
+            <p>2308107010036</p>
+          </div>
+
+          <div class="team-card">
+            <img src="asset/farel.jpg" alt="Anggota 3" />
+            <h3>Naufal Farrel Syafilan</h3>
+            <p>2308107010058</p>
+          </div>
+
+          <div class="team-card">
+            <img src="/asset/syukri.jpg" alt="Anggota 4" />
+            <h3>Muhammad Syukri</h3>
+            <p>2308107010060</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dataset Description -->
+      <section class="dataset-section">
+        <h2>Tentang Dataset</h2>
+        <div class="dataset-info">
+          <div class="dataset-image">
+            <img src="/asset/dataset-cover.jpg" alt="cover" />
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="dataset-description">
+            <p>
+              Dataset <strong>StudentPerformanceFactors</strong> berisi
+              informasi komprehensif tentang berbagai faktor yang mempengaruhi
+              performa akademik siswa. Dataset ini mencakup beragam aspek
+              seperti latar belakang sosial-ekonomi, kebiasaan belajar,
+              lingkungan keluarga, dan berbagai faktor penting lainnya.
+            </p>
+            <p>
+              Melalui analisis dan visualisasi data ini, kami bertujuan untuk
+              mengidentifikasi faktor-faktor kunci yang memiliki dampak
+              signifikan terhadap prestasi akademik siswa, memberikan wawasan
+              berharga untuk pendidik, orang tua, dan pemangku kebijakan
+              pendidikan.
+            </p>
+            <div class="dataset-stats">
+              <span class="stat-item"
+                ><i class="fas fa-table"></i> 6607 Record</span
+              >
+              <span class="stat-item"
+                ><i class="fas fa-columns"></i> 22 Variables</span
+              >
+              <a
+                class="stat-item"
+                href="StudentPerformanceFactors.csv"
+                download
+              >
+                <i class="fas fa-file-csv"></i> CSV Format
+              </a>
+              <span class="stat-item"
+                ><i class="fas fa-check-circle"></i> Data Bersih</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visualizations Section -->
+      <section class="visualizations-section">
+        <h2>Visualisasi Data</h2>
+        <div class="viz-grid">
+          <!-- Viz Card 1 -->
+          <div class="viz-card" data-viz="demographic">
+            <div class="viz-image">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Scatter Plot: Jam Belajar vs Nilai Ujian</h3>
+              <p>
+                Visualisasi hubungan antara jam belajar dengan nilai akhir
+                ujian.
+              </p>
+              <a href="/Visualisasi1/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 2 -->
+          <div class="viz-card" data-viz="academic">
+            <div class="viz-image">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Parental Involvement vs Exam Score</h3>
+              <p>
+                Visualisasi dampak Keterlibatan Orang Tua terhadap Performa
+                Ujian Siswa
+              </p>
+              <a href="/Visualisasi2/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 3 -->
+          <div class="viz-card" data-viz="socioeconomic">
+            <div class="viz-image">
+              <i class="fas fa-home"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Pie Chart - Jenis Sekolah</h3>
+              <p>
+                Visualisasi perbandingan Persentase Siswa dengan Nilai Tinggi
+                Berdasarkan Jenis Sekolah.
+              </p>
+              <a href="/Visualisasi3/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 4 -->
+          <div class="viz-card" data-viz="study">
+            <div class="viz-image">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Motivation vs Exam Score Bar Chart</h3>
+              <p>
+                Visualisasi pengaruh Motivasi belajar siswa terhadap rata-rata
+                nilai akhir.
+              </p>
+              <a href="/Visualisasi4/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 5 -->
+          <div class="viz-card" data-viz="family">
+            <div class="viz-image">
+              <i class="fas fa-house-user"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Pengaruh Teman Sebaya terhadap Nilai Ujian</h3>
+              <p>
+                Visualisasi Data Pengaruh Teman Sebaya terhadap Nilai Ujian.
+              </p>
+              <a href="Visualisasi5/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 6 -->
+          <div class="viz-card" data-viz="health">
+            <div class="viz-image">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Hubungan Pendidikan & Pendapatan</h3>
+              <p>
+                Hubungan Tingkat Pendidikan Orangtua dengan Pendapatan Keluarga.
+              </p>
+              <a href="/Visualisasi6/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 7 -->
+          <div class="viz-card" data-viz="correlation">
+            <div class="viz-image">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Exam Score vs Family Income</h3>
+              <p>
+                Visualisasi Distribusi Nilai Ujian Berdasarkan Pendapatan
+                Keluarga.
+              </p>
+              <a href="/Visualisasi7/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+
+          <!-- Viz Card 8 -->
+          <div class="viz-card" data-viz="prediction">
+            <div class="viz-image">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div class="viz-content">
+              <h3>Distribusi Jam Belajar dan Kehadiran Siswa</h3>
+              <p>
+                Visualisasi hubungan antara kategori jam belajar dan tingkat
+                kehadiran.
+              </p>
+              <a href="/Visualisasi8/index.html" class="viz-btn"
+                >Lihat Visualisasi</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 Student Performance Factors Analysis</p>
+          <p>
+            Sebuah proyek visualisasi data untuk memahami faktor-faktor yang
+            mempengaruhi performa akademik siswa.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <div class="back-to-top">
+      <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <script>
+      // Back to top button functionality
+      const backToTopButton = document.querySelector(".back-to-top");
+
+      window.addEventListener("scroll", () => {
+        if (window.pageYOffset > 300) {
+          backToTopButton.classList.add("active");
+        } else {
+          backToTopButton.classList.remove("active");
+        }
+      });
+
+      backToTopButton.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+
+      // Visualization cards click functionality
+      const vizCards = document.querySelectorAll(".viz-card");
+      vizCards.forEach((card) => {
+        card.addEventListener("click", function () {
+          const vizType = this.getAttribute("data-viz");
+          const link = this.querySelector(".viz-btn").getAttribute("href");
+          window.location.href = link;
+        });
+      });
+
+      // Add animation on scroll
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        const sections = document.querySelectorAll("section");
+        sections.forEach((section) => {
+          section.style.opacity = "0";
+          section.style.transform = "translateY(20px)";
+          section.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(section);
+        });
+      });
+    </script>
+  </body>
+</html>

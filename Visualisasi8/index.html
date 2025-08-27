@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analisis Kinerja Siswa</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Distribusi Jam Belajar dan Kehadiran Siswa</h1>
+      <p class="subtitle">
+        Visualisasi hubungan antara kategori jam belajar dan tingkat kehadiran
+      </p>
+
+      <div id="chart"></div>
+
+      <div class="legend">
+        <h3>Persentase Distribusi</h3>
+        <div id="color-scale"></div>
+      </div>
+
+      <div class="category-info">
+        <h4>Kategori Jam Belajar:</h4>
+        <ul>
+          <li><strong>Sangat Rendah:</strong> &lt; 7 jam</li>
+          <li><strong>Rendah:</strong> 7 - 13 jam</li>
+          <li><strong>Sedang:</strong> 14 - 20 jam</li>
+          <li><strong>Tinggi:</strong> 21 - 35 jam</li>
+          <li><strong>Sangat Tinggi:</strong> &gt; 35 jam</li>
+        </ul>
+
+        <h4>Kategori Kehadiran:</h4>
+        <ul>
+          <li><strong>Rendah:</strong> &lt; 70%</li>
+          <li><strong>Sedang:</strong> 70% - 85%</li>
+          <li><strong>Tinggi:</strong> &gt; 85%</li>
+        </ul>
+      </div>
+
+      <div class="insights">
+        <h3>Wawasan</h3>
+        <p>
+          Visualisasi ini menunjukkan distribusi proporsi siswa berdasarkan
+          tingkat kehadiran untuk setiap kategori jam belajar.
+        </p>
+      </div>
+    </div>
+
+    <!-- Load D3.js -->
+    <script src="../d3.v7.min.js"></script>
+    <!-- Load custom JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
